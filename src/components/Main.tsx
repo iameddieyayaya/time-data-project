@@ -12,6 +12,7 @@ const Main: React.FC<MainProps> = () => {
   const [data, setData] = useState<{ time: string; value: number; }[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<string>('');
+  const [error, setError] = useState<boolean>(false);
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(event.target.value);
@@ -20,8 +21,9 @@ const Main: React.FC<MainProps> = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-
-      if (!selectedDate) return
+      if (!selectedDate) {
+        return;
+      }
 
       const startDate = new Date(selectedDate);
       const endDate = new Date();
@@ -44,9 +46,11 @@ const Main: React.FC<MainProps> = () => {
 
         setData(formattedData);
       } else {
+        setError(true);
         console.error('Failed to fetch data');
       }
     } catch (error) {
+      setError(true);
       console.error('Failed to fetch data', error);
     }
     finally {
@@ -62,10 +66,14 @@ const Main: React.FC<MainProps> = () => {
             <Box display="flex" sx={{
               'input': { marginRight: 1 },
             }}>
-              <input type="date" value={selectedDate} onChange={handleDateChange} />
+              <label hidden htmlFor="date">Select date</label>
+              <input id='date' name='date' type="date" value={selectedDate} onChange={handleDateChange} />
               <Button variant="contained" onClick={fetchData} disabled={loading}>
                 {loading ? 'Fetching...' : 'Fetch Data'}
               </Button>
+              <p>
+                {error && 'Failed to fetch data'}
+              </p>
             </Box>
           </Grid>
           <Grid item xs={12} justifyContent="center">
