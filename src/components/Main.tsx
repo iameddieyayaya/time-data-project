@@ -22,6 +22,7 @@ const Main: React.FC<MainProps> = () => {
     try {
       setLoading(true);
       if (!selectedDate) {
+        alert('Please select a date');
         return;
       }
 
@@ -68,7 +69,7 @@ const Main: React.FC<MainProps> = () => {
             }}>
               <label hidden htmlFor="date">Select date</label>
               <input id='date' name='date' type="date" value={selectedDate} onChange={handleDateChange} />
-              <Button variant="contained" onClick={fetchData} disabled={loading}>
+              <Button variant="contained" onClick={fetchData} disabled={loading} color="success">
                 {loading ? 'Fetching...' : 'Fetch Data'}
               </Button>
               <p>
@@ -76,7 +77,13 @@ const Main: React.FC<MainProps> = () => {
               </p>
             </Box>
           </Grid>
-          <Grid item xs={12} justifyContent="center">
+          <Grid item xs={12} justifyContent="center" sx={{
+            height: `50vh`,
+            '@media only screen and (max-width: 600px)': {
+              height: `100%`,
+              width: `100%`,
+            },
+          }}>
             <LineGraph data={data} />
           </Grid>
           <Grid item xs={12}>
