@@ -1,15 +1,17 @@
-import { Container, Box, Button, Grid } from '@mui/material';
 import React, { useState } from 'react';
+import { Container, Box, Button, Grid } from '@mui/material';
+
 import LineGraph from './LineGraph';
 import DataTable from './DataTable';
 
+import { DataPoint } from '../types/dataTypes';
+
 const API = 'https://tsserv.tinkermode.dev';
 
-interface MainProps {
-}
+interface MainProps {}
 
 const Main: React.FC<MainProps> = () => {
-  const [data, setData] = useState<{ time: string; value: number; }[]>([]);
+  const [data, setData] = useState<DataPoint[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [error, setError] = useState<boolean>(false);

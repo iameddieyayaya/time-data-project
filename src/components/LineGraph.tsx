@@ -10,10 +10,8 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
-interface DataPoint {
-  time: string;
-  value: number;
-};
+import { DataPoint } from '../types/dataTypes';
+
 
 interface LineGraphProps {
   data: DataPoint[];

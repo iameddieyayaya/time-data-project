@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
 import {
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  Paper,
-  TablePagination
+  TablePagination,
+  TableRow
 } from '@mui/material';
 
+import { DataPoint } from '../types/dataTypes';
 
-interface DataPoint {
-  time: string;
-  value: number;
-}
+
 
 interface DataTableProps {
   data: DataPoint[];
